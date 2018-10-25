@@ -118,8 +118,13 @@ ENV LUA_CPATH="/usr/local/openresty/site/lualib/?.so;/usr/local/openresty/lualib
 
 RUN luarocks install lua-resty-woothee
 
-# Copy nginx configuration files
+RUN mkdir /data
+
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
+COPY cert.pem /data/cert.pem
+COPY cert.key /data/cert.key
+
+RUN mkdir -p /var/log/nginx/
 
 CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
 
