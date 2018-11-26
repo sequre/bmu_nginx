@@ -123,9 +123,9 @@ RUN mkdir /data
 RUN apk update && apk add paxctl && paxctl -c $(which nginx) && paxctl -p -e -m -r -x -s $(which nginx)
 RUN paxctl -c /usr/local/openresty/bin/openresty && paxctl -p -e -m -r -x -s /usr/local/openresty/bin/openresty
 
-COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 COPY cert.pem /data/cert.pem
 COPY cert.key /data/cert.key
+COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 
 RUN mkdir -p /var/log/nginx/
 
