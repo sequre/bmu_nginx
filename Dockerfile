@@ -120,6 +120,7 @@ RUN luarocks install lua-resty-woothee
 
 RUN mkdir /data
 
+# PAXCTL
 RUN apk update && apk add paxctl && paxctl -c $(which nginx) && paxctl -p -e -m -r -x -s $(which nginx)
 RUN paxctl -c /usr/local/openresty/bin/openresty && paxctl -p -e -m -r -x -s /usr/local/openresty/bin/openresty
 
@@ -128,6 +129,11 @@ COPY cert.key /data/cert.key
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 
 RUN mkdir -p /var/log/nginx/
+
+# Logrotate
+RUN apk add --update logrotate
+RUN mkdir -p /etc/logrotate.d/
+COPY nginx-logrotate.conf /etc/logrotate.d/nginx-logrotate.conf
 
 CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
 
