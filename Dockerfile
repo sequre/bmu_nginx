@@ -127,7 +127,7 @@ RUN paxctl -c /usr/local/openresty/bin/openresty && paxctl -p -e -m -r -x -s /us
 # Logrotate
 RUN apk add --update logrotate
 RUN mkdir -p /etc/logrotate.d/
-COPY nginx-logrotate.conf /etc/logrotate.d/nginx-logrotate.conf
+COPY nginx-logrotate.conf /etc/logrotate.d/nginx-logrotate
 
 # Own files
 COPY cert.pem /data/cert.pem
@@ -135,5 +135,6 @@ COPY cert.key /data/cert.key
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 RUN mkdir -p /var/log/nginx/
 
-CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]
+COPY entrypoint.sh /entrypoint.sh
 
+CMD ["/entrypoint.sh"]
