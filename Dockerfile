@@ -1,5 +1,9 @@
 # Dockerfile - alpine
 # https://github.com/openresty/docker-openresty
+#
+RUN echo $CACHE_TAG
+
+RUN echo $DOCKER_TAG
 
 ARG RESTY_IMAGE_BASE="alpine"
 ARG RESTY_IMAGE_TAG="3.8"
