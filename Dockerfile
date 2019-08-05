@@ -46,6 +46,14 @@ ARG RESTY_CONFIG_OPTIONS="\
     "
 ARG RESTY_CONFIG_OPTIONS_MORE=""
 
+ARG CACHE_TAG
+ENV CACHE_TAG=$CACHE_TAG
+ENV SSE_DISABLED ""
+
+RUN old=${CACHE_TAG:(-3)} && \
+      [[ "$old" = "old" ]] && SSE_DISABLED=" --with-luajit-xcflags='-mno-sse4.2'" || \
+      true
+
 LABEL resty_version="${RESTY_VERSION}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
 LABEL resty_pcre_version="${RESTY_PCRE_VERSION}"
@@ -86,7 +94,7 @@ RUN apk add --no-cache --virtual .build-deps \
     && curl -fSL https://openresty.org/download/openresty-${RESTY_VERSION}.tar.gz -o openresty-${RESTY_VERSION}.tar.gz \
     && tar xzf openresty-${RESTY_VERSION}.tar.gz \
     && cd /tmp/openresty-${RESTY_VERSION} \
-    && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} ${RESTY_CONFIG_OPTIONS_MORE} \
+    && ./configure -j${RESTY_J} ${_RESTY_CONFIG_DEPS} ${RESTY_CONFIG_OPTIONS} ${RESTY_CONFIG_OPTIONS_MORE} ${SSE_DISABLED} \
     && make -j${RESTY_J} \
     && make -j${RESTY_J} install \
     && cd /tmp \
