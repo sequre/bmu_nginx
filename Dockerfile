@@ -1,16 +1,16 @@
 # Dockerfile - alpine
 # https://github.com/openresty/docker-openresty
 #
-RUN echo $CACHE_TAG
-
-RUN echo $DOCKER_TAG
-
 ARG RESTY_IMAGE_BASE="alpine"
 ARG RESTY_IMAGE_TAG="3.8"
 
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
+
+RUN echo $CACHE_TAG
+
+RUN echo $DOCKER_TAG
 
 # Docker Build Arguments
 ARG RESTY_VERSION="1.13.6.2"
