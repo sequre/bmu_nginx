@@ -50,11 +50,8 @@ ARG RESTY_CONFIG_OPTIONS="\
     "
 ARG RESTY_CONFIG_OPTIONS_MORE=""
 
-ARG CACHE_TAG
-ENV CACHE_TAG=$CACHE_TAG
 ENV SSE_DISABLED ""
-
-ENV DOCKER_TAG
+ENV DOCKER_TAG ""
 
 RUN old=${DOCKER_TAG:(-3)} && \
       [[ "$old" = "old" ]] && SSE_DISABLED=" --with-luajit-xcflags='-mno-sse4.2'" || \
