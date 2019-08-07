@@ -8,9 +8,9 @@ FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
 
-RUN echo $CACHE_TAG
+RUN echo CACHE_TAG $CACHE_TAG
 
-RUN echo $DOCKER_TAG
+RUN echo DOCKET_TAG $DOCKER_TAG
 
 # Docker Build Arguments
 ARG RESTY_VERSION="1.13.6.2"
@@ -53,7 +53,10 @@ ARG RESTY_CONFIG_OPTIONS_MORE=""
 ENV SSE_DISABLED ""
 ENV DOCKER_TAG ""
 
-RUN old=${DOCKER_TAG:(-3)} && \
+RUN echo CACHE_TAG_after $CACHE_TAG
+
+RUN echo DOCKET_TAG_after $DOCKER_TAG
+RUN old=${CACHE_TAG:(-3)} && echo exito &&\
       [[ "$old" = "old" ]] && SSE_DISABLED=" --with-luajit-xcflags='-mno-sse4.2'" || \
       true
 
