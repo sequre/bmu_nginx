@@ -1,13 +1,9 @@
 # Dockerfile - alpine
 # https://github.com/openresty/docker-openresty
 #
-RUN echo DOCKER_TAG $DOCKER_TAG
-RUN echo "DOCKER_TAG2 $DOCKER_TAG"
 ARG RESTY_IMAGE_BASE="alpine"
 ARG RESTY_IMAGE_TAG="3.8"
 ARG DOCKER_TAG
-RUN echo DOCKER_TAG $DOCKER_TAG
-RUN echo "DOCKER_TAG2 $DOCKER_TAG"
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
