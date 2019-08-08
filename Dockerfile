@@ -3,13 +3,9 @@
 #
 ARG RESTY_IMAGE_BASE="alpine"
 ARG RESTY_IMAGE_TAG="3.8"
-ARG DOCKER_TAG
 FROM ${RESTY_IMAGE_BASE}:${RESTY_IMAGE_TAG}
 
 LABEL maintainer="Evan Wies <evan@neomantra.net>"
-
-RUN echo DOCKER_TAG $DOCKER_TAG
-RUN echo "DOCKER_TAG2 $DOCKER_TAG"
 
 # Docker Build Arguments
 ARG RESTY_VERSION="1.13.6.2"
@@ -49,14 +45,7 @@ ARG RESTY_CONFIG_OPTIONS="\
     "
 ARG RESTY_CONFIG_OPTIONS_MORE=""
 
-ENV SSE_DISABLED ""
-ENV DOCKER_TAG=$DOCKER_TAG
-
-RUN echo DOCKER_TAG_after $DOCKER_TAG
-
-RUN old=${DOCKER_TAG:(-3)} &&\
-      [[ "$old" = "old" ]] && echo exito && SSE_DISABLED=" --with-luajit-xcflags='-mno-sse4.2'" || \
-      true
+ENV SSE_DISABLED --with-luajit-xcflags='-mno-sse4.2'
 
 LABEL resty_version="${RESTY_VERSION}"
 LABEL resty_openssl_version="${RESTY_OPENSSL_VERSION}"
